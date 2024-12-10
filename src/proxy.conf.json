@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "https://iifb4kr7vjsqdhwrhizwzpzjrm0qhpka.lambda-url.us-west-2.on.aws",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

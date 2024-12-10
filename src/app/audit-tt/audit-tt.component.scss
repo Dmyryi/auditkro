@@ -1,0 +1,180 @@
+.audit-container {
+  text-align: center;
+  margin-top: 20px;
+
+  h2 {
+    font-size: 35px;
+  }
+
+  p {
+    font-size: 20px;
+  }
+
+  .controlzone-btn {
+    height: 57px;
+    width: 80%;
+    margin-bottom: 9px;
+    font-weight: 600;
+    font-size: 20px;
+    background-color: #fdc300;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 22px;
+    width: 80%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .uploaded-btn {
+    height: 57px;
+    width: 80%;
+    font-weight: 600;
+    font-size: 20px;
+    background-color: #fff;
+    // color: #fff;
+    border: 1px solid #000;
+    border-radius: 40px;
+    width: 80%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+}
+
+.upload-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
+}
+
+.upload-spinner::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  border: 4px solid rgba(85, 85, 85, 0.3);
+  border-top: 4px solid #555;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+  z-index: 1000;
+  width: 80%;
+  height: 90%;
+  max-width: 600px;
+  overflow-y: auto;
+}
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.lightbox-img {
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.close-lightbtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.modal-content {
+  position: relative;
+  text-align: center;
+
+  .close-btn {
+    position: sticky;
+    top: 10px;
+    left: 100%;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .photo-section {
+    .main-photo {
+      .main-photo-img {
+        border: 2px solid #ddd;
+        cursor: pointer;
+        // transition: transform 0.2s ease-in-out;
+        width: 80%;
+      }
+    }
+
+    .new-photo {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap; /* Разрешает перенос строк, если фото не помещаются */
+      gap: 10px; /* Добавляем промежутки между изображениями */
+      width: 100%;
+    }
+
+    .new-photo-img {
+      width: 90px; /* Ширина каждого изображения */
+      height: 90px; /* Высота каждого изображения */
+      border: 2px solid #ddd;
+      cursor: pointer;
+      flex-wrap: wrap;
+      // transition: transform 0.2s ease-in-out;
+      object-fit: cover; /* Изображение заполняет заданные размеры, сохраняя пропорции */
+    }
+
+    .new-photo-div {
+      display: flex;
+      // width: 100%;
+      flex-wrap: wrap;
+    }
+  }
+
+  .upload-label {
+    cursor: pointer;
+    background: #fdc300;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 4px;
+    display: inline-block;
+    // transition: background 0.3s ease;
+
+    input {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,90 @@
+<div *ngIf="isLoading" class="loading-spinner">Завантанження данних...</div>
+
+<div *ngIf="!isLoading && auditData?.erpdata">
+  <div class="audit-container">
+    <h2 class="details-audit">Деталі аудиту</h2>
+    <p class="about-audit">{{ auditData.erpdata.storepoint }}</p>
+    <p class="about-audit">
+      <strong>Ревізор:</strong> {{ auditData.erpdata.auditor }}
+    </p>
+    <p class="about-audit">
+      <strong>Бали:</strong> {{ auditData.erpdata.rate }}
+    </p>
+
+    <div *ngFor="let violation of auditData.erpdata.violationarray">
+      <!-- <p class="about-audit">{{ violation.controlzone }}</p> -->
+
+      <button
+        class="controlzone-btn"
+        [ngClass]="{
+          'uploaded-btn': violationsUploadState[violation.rownumber]
+        }"
+        (click)="openModal(violation)"
+      >
+        {{ violation.controlelement }}
+      </button>
+    </div>
+
+    <!-- Modal -->
+    <div *ngIf="modalOpen && currentViolation" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" (click)="closeModal()">&times;</span>
+        <h2>Порушення</h2>
+
+        <div class="photo-section">
+          <!-- Основное фото нарушения -->
+          <div *ngIf="currentViolation.foto" class="main-photo">
+            <img
+              [src]="currentViolation.foto"
+              alt="Violation photo"
+              class="main-photo-img"
+              (click)="openLightbox(currentViolation.foto)"
+            />
+          </div>
+
+          <div *ngIf="!currentViolation.foto">
+            <p>No photo available</p>
+          </div>
+
+          <!-- Загрузка нового фото -->
+          <label class="upload-label">
+            <input
+              type="file"
+              (change)="uploadPhoto($event, currentViolation)"
+              multiple
+            />
+            Додати фото
+          </label>
+
+          <div *ngIf="isUploading" class="upload-spinner">
+            Завантанження фото...
+          </div>
+
+          <div *ngIf="filteredPhotos?.length > 0" class="new-photo">
+            <div *ngFor="let photo of filteredPhotos" class="new-photo-div">
+              <div *ngFor="let link of photo.link">
+                <img
+                  [src]="link"
+                  alt="Uploaded photo"
+                  class="new-photo-img"
+                  loading="lazy"
+                  (click)="openLightbox(link)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isLightboxOpen" class="lightbox">
+      <div class="lightbox-content">
+        <img
+          [src]="photoViolationCurrent"
+          alt="Lightbox View"
+          class="lightbox-img"
+        />
+        <span class="close-lightbtn" (click)="closeLightbox()">&times;</span>
+      </div>
+    </div>
+  </div>
+</div>
