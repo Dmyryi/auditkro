@@ -60,11 +60,13 @@ export class ServicesService {
     });
   }
 
-  getIndexPhoto(): Observable<any> {
+  getIndexPhoto(auditId: string): Observable<any> {
     const body = {
       size: 300,
       query: {
-        match_all: {},
+        match_phrase: {
+          guid: auditId,
+        },
       },
     };
 
@@ -84,7 +86,7 @@ export class ServicesService {
     const body = {
       guid,
 
-      row: rownumber,
+      rownumber: rownumber,
       link: photoUrl,
 
       date: new Date().toISOString(),

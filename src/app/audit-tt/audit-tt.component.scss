@@ -129,39 +129,44 @@
     margin-bottom: 20px;
   }
 
-  .photo-section {
-    .main-photo {
-      .main-photo-img {
-        border: 2px solid #ddd;
-        cursor: pointer;
-        // transition: transform 0.2s ease-in-out;
-        width: 80%;
-      }
-    }
-
-    .new-photo {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap; /* Разрешает перенос строк, если фото не помещаются */
-      gap: 10px; /* Добавляем промежутки между изображениями */
-      width: 100%;
-    }
-
-    .new-photo-img {
-      width: 90px; /* Ширина каждого изображения */
-      height: 90px; /* Высота каждого изображения */
+  .main-photos {
+    display: flex;
+    // flex-wrap: wrap;
+  }
+  .main-photo {
+    .main-photo-img {
       border: 2px solid #ddd;
       cursor: pointer;
-      flex-wrap: wrap;
-      // transition: transform 0.2s ease-in-out;
-      object-fit: cover; /* Изображение заполняет заданные размеры, сохраняя пропорции */
+      width: 100%; /* Обеспечивает гибкость изображения */
+      max-width: 80%; /* Ограничивает максимальную ширину */
+      height: auto; /* Сохраняет пропорции изображения */
+      object-fit: contain; /* Подстраивает изображение по размеру контейнера */
+      transition: transform 0.2s ease-in-out;
     }
+  }
 
-    .new-photo-div {
-      display: flex;
-      // width: 100%;
-      flex-wrap: wrap;
-    }
+  .new-photo {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Разрешает перенос строк, если фото не помещаются */
+    gap: 10px; /* Добавляем промежутки между изображениями */
+    width: 100%;
+  }
+
+  .new-photo-img {
+    width: 90px; /* Ширина каждого изображения */
+    height: 90px; /* Высота каждого изображения */
+    border: 2px solid #ddd;
+    cursor: pointer;
+    flex-wrap: wrap;
+    // transition: transform 0.2s ease-in-out;
+    object-fit: cover; /* Изображение заполняет заданные размеры, сохраняя пропорции */
+  }
+
+  .new-photo-div {
+    display: flex;
+    // width: 100%;
+    flex-wrap: wrap;
   }
 
   .upload-label {

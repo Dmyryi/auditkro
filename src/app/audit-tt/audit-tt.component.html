@@ -33,13 +33,15 @@
 
         <div class="photo-section">
           <!-- Основное фото нарушения -->
-          <div *ngIf="currentViolation.foto" class="main-photo">
-            <img
-              [src]="currentViolation.foto"
-              alt="Violation photo"
-              class="main-photo-img"
-              (click)="openLightbox(currentViolation.foto)"
-            />
+          <div *ngIf="currentViolation.foto?.length" class="main-photos">
+            <div *ngFor="let photo of currentViolation.foto" class="main-photo">
+              <img
+                [src]="photo"
+                alt="Violation photo"
+                class="main-photo-img"
+                (click)="openLightbox(photo)"
+              />
+            </div>
           </div>
 
           <div *ngIf="!currentViolation.foto">

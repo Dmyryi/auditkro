@@ -45,8 +45,12 @@ export class AuditTtComponent implements OnInit {
     this.currentViolation = violation;
     this.originalPhoto = violation.foto;
     this.filteredPhotos = this.photoData.filter((photo: any) => {
-      return Number(photo.row) === Number(this.currentViolation?.rownumber);
+      const photoRowNumber = Number(photo.rownumber || photo.row);
+      const violationRowNumber = Number(this.currentViolation?.rownumber);
+
+      return photoRowNumber === violationRowNumber;
     });
+
     this.modalOpen = true;
   }
 
@@ -66,6 +70,7 @@ export class AuditTtComponent implements OnInit {
       this.auditId = params.get('id') || '';
       this.loadAuditData();
       this.loadPhotoData();
+      this.loadUploadStateFromLocalStorage();
     });
   }
 
@@ -89,7 +94,7 @@ export class AuditTtComponent implements OnInit {
   loadPhotoDataFirst(): void {}
 
   loadPhotoData(): void {
-    this.service.getIndexPhoto().subscribe(
+    this.service.getIndexPhoto(this.auditId).subscribe(
       (data) => {
         if (data.hits && data.hits.hits.length > 0) {
           // Преобразуем полученные данные
@@ -111,6 +116,15 @@ export class AuditTtComponent implements OnInit {
   // Метод для глубокого сравнения данных
   isEqual(oldData: any[], newData: any[]): boolean {
     return JSON.stringify(oldData) === JSON.stringify(newData);
+  }
+
+  loadUploadStateFromLocalStorage(): void {
+    const savedState = localStorage.getItem(
+      `violationsUploadState_${this.auditId}`
+    );
+    if (savedState) {
+      this.violationsUploadState = JSON.parse(savedState);
+    }
   }
 
   // Загрузка фото
@@ -149,7 +163,7 @@ export class AuditTtComponent implements OnInit {
             .subscribe(
               () => {
                 this.violationsUploadState[violation.rownumber] = true;
-
+                this.saveUploadStateToLocalStorage();
                 // Обновляем только фотографии текущего нарушения
                 this.filteredPhotos.push({ link: uploadedUrl });
               },
@@ -168,5 +182,12 @@ export class AuditTtComponent implements OnInit {
         }
       );
     }
+  }
+
+  saveUploadStateToLocalStorage(): void {
+    localStorage.setItem(
+      `violationsUploadState_${this.auditId}`,
+      JSON.stringify(this.violationsUploadState)
+    );
   }
 }
